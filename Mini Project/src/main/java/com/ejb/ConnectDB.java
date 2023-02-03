@@ -11,7 +11,7 @@ public class ConnectDB {
 	public Connection createConnection() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@fsktmdbora.upm.edu.my:1521:fsktm", "nky", "nky");
+			Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@fsktmdbora.upm.edu.my:1521:fsktm", "***", "***");
 			return connection;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
