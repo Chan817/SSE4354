@@ -3,6 +3,7 @@ package com.ejb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 
 import javax.ws.rs.*;
 
@@ -46,10 +47,19 @@ public class OTPService {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
+			
+			//set expiry time for OTP
+			LocalDateTime expiryTime = otpSession.getOtpSentTime().plusMinutes(5);
+			
+			//current time
+			LocalDateTime now = LocalDateTime.now();
+			System.out.println("otp sent: " + otpSession.getOtpSentTime());
+			System.out.println("expiry: " + expiryTime);
+			System.out.println("now: " + now);
 			 if (rs.next()) {
 				 otpStr = rs.getString("otp");
 				 otpdb = Integer.valueOf(otpStr);
-				 if (otp == otpdb)
+				 if (otp == otpdb && now.isBefore(expiryTime))
 					 correctOTP = true;
 	          }
 		}catch(Exception e) {

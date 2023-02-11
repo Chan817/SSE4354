@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 public class AddAccount {
 
 	public static void main(String[] args) {
-		//addAcc("CHAN", "30000", "chanenghui2001@gmail.com", "123456");
+		//addAcc("ZHANG", "30000", "205016@student.upm.edu.my", "123456");
 		show();
 
 	}

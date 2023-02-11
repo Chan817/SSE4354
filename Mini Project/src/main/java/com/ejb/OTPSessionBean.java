@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 import javax.ejb.LocalBean;
@@ -27,7 +28,8 @@ import javax.mail.internet.MimeMessage;
 @LocalBean
 public class OTPSessionBean implements OTPSessionBeanRemote, OTPSessionBeanLocal {
 
-    /**
+    LocalDateTime otpSentTime;
+	/**
      * Default constructor. 
      */
     public OTPSessionBean() {
@@ -108,10 +110,12 @@ public class OTPSessionBean implements OTPSessionBeanRemote, OTPSessionBeanLocal
 
 	            Transport.send(message);
 	            System.out.println("Email sent successfully.");*/
-		
+    	otpSentTime = LocalDateTime.now();
+    	System.out.println(otpSentTime);
     	System.out.println("Dear Customer!");
 		System.out.println("This is an Email from Bank A");
 		System.out.println("Your OTP: " + otp);
+		
 	}
 
 	//store otp in database
@@ -130,6 +134,12 @@ public class OTPSessionBean implements OTPSessionBeanRemote, OTPSessionBeanLocal
 			e.printStackTrace();
 		}
 		
+	}
+    
+  //get otpSentTime 
+    @Override
+    public LocalDateTime getOtpSentTime() {
+		return this.otpSentTime;
 	}
 
 }
